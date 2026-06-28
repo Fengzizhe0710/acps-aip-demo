@@ -63,12 +63,17 @@ acps-aip-demo/
 - **Discovery**：查询已注册智能体、健康检查
 - **MQ**：群组 ACL 管理、Auth API 探测
 
-**使用前请先修改配置文件** [`acps-cli/acps-cli.toml`](./acps-cli/acps-cli.toml)，将 `[registry]`、`[ca]`、`[discovery]`、`[mq]` 中的 `base_url` 改为你实际部署的后端地址：
+**使用前请先修改配置文件** [`acps-cli/acps-cli.toml`](./acps-cli/acps-cli.toml)，将 `[registry]`、`[ca]`、`[discovery]`、`[mq]` 中的服务地址改为你实际部署的后端；`[auth]` 指定登录 token 的本地存放路径（由 `acps-cli auth login` 自动写入，**勿提交到 Git**）：
 
 ```toml
 [registry]
 base_url = "http://localhost:9000/registry"
 mtls_base_url = "https://localhost:9002"
+
+[auth]
+# 普通用户与管理员 token 文件物理分离
+user_token_file = "./.acps-cli/tokens/registry-user.json"
+admin_token_file = "./.acps-cli/tokens/registry-admin.json"
 
 [ca]
 base_url = "http://localhost:9000/ca-server"
@@ -79,6 +84,8 @@ base_url = "http://localhost:9000/discovery"
 [mq]
 group_api_url = "https://localhost:9007"
 ```
+
+默认路径一般无需修改；执行 `acps-cli auth login` / `acps-cli admin auth login` 后会在 `./.acps-cli/tokens/` 生成对应 JSON。该目录已在 `.gitignore` 中忽略。
 
 也可通过 `--config PATH` 指定其他配置文件。详细命令说明见 [acps-cli/README.md](./acps-cli/README.md)。
 
