@@ -1,5 +1,31 @@
 # acps-aip-demo
 
+## ACPs 官方项目
+
+本 Demo 依赖的后端服务（Registry、CA、Discovery、MQ 鉴权等）来自 ACPs 官方开源仓库：
+
+**[AIP-PUB/ACPs-community](https://github.com/AIP-PUB/ACPs-community)**
+
+该项目由北京邮电大学牵头、依托中国电子技术标准化研究院开发，是 **ACPs 协议的官方参考实现**，可一键部署完整的 ACPs 服务栈，包括：
+
+| 组件 | 目录 | 作用 |
+|------|------|------|
+| 协议规范 | `acps-specs/` | ACPs 协议体系定义 |
+| 基础设施 | `acps-infra/` | Docker 编排与单机/生产部署 |
+| 注册服务 | `registry-server/` | 智能体可信注册（ATR） |
+| 证书服务 | `ca-server/` | mTLS 证书签发（EAB 流程） |
+| 发现服务 | `discovery-server/` | 智能体发现（ADP） |
+| MQ 鉴权 | `mq-auth-server/` | 群组模式 RabbitMQ ACL 与鉴权 |
+| CLI / SDK | `acps-cli/`、`acps-sdk/` | 与本仓库同源的工具与开发库 |
+| 参考文档 | `acps-docs/` | 平台开发指南、接入教程等 |
+
+与本仓库的关系：
+
+- **ACPs-community** — 部署整套 ACPs 平台（后端 + 官方 demo-leader/demo-partner）
+- **acps-aip-demo（本仓库）** — 聚焦 **AIP 2.1 智能体快速开发**，用更精简的 RPC / AMQP 两种 Demo 展示可信注册到运行的完整路径
+
+本地联调时，先用 [ACPs-community](https://github.com/AIP-PUB/ACPs-community) 拉起 Registry / CA / Discovery 等服务，再将 [`acps-cli/acps-cli.toml`](./acps-cli/acps-cli.toml) 中的地址指向对应端口。详细部署见官方仓库 README 与 `acps-docs/` 中的 Getting Started 文档。
+
 ## ACPs 是什么
 
 **ACPs**（Agent Collaboration Protocols，智能体协作协议体系）是一套面向多智能体协作的开放协议规范。它定义了智能体如何描述自身能力、完成可信身份注册、获取 mTLS 证书，以及通过标准协议进行安全交互与发现。
@@ -49,6 +75,7 @@ acps-aip-demo/
 | 跑通群组建队、邀请、广播任务 | [demo-group/README.md](./demo-group/README.md) |
 | 设计群组 ACS、RPC vs Inbox 邀请 | [demo-group/DEVELOPMENT.md](./demo-group/DEVELOPMENT.md) |
 | SDK API 与数据模型 | [acps-sdk/README.md](./acps-sdk/README.md) |
+| 部署整套 ACPs 后端服务 | [ACPs-community](https://github.com/AIP-PUB/ACPs-community) 及 `acps-docs/` |
 
 > 若只想快速跑通**点对点调用**，完成 `demo/` 即可；若需要**多智能体广播协作**，再继续 `demo-group/`。
 
@@ -107,7 +134,7 @@ Demo 的 `requirements.txt` 已依赖本 SDK；开发时可 `pip install -e ../a
 ### 环境要求
 
 - **Python 3.10+**
-- **Registry / CA / Discovery** 后端服务（地址配置在 `acps-cli/acps-cli.toml`）
+- **ACPs 后端服务** — 需先部署 [ACPs-community](https://github.com/AIP-PUB/ACPs-community) 中的 Registry / CA / Discovery（及群组模式所需的 MQ 鉴权、RabbitMQ），地址配置在 `acps-cli/acps-cli.toml`
 - **demo-group 额外需要 RabbitMQ**（默认 `localhost:5672`，见 [demo-group/README.md](./demo-group/README.md)）
 
 ### 1. 安装 acps-cli
