@@ -34,7 +34,8 @@ htmlcov/
 .env.local
 .env.*.local
 
-# acps-cli 本地密钥目录（若在仓库根使用）
+# acps-cli 本地密钥与登录 token（保留 acps-cli.toml 模板）
+**/.acps-cli/
 keyfiles/
 
 # IDE
