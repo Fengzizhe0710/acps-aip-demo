@@ -1,0 +1,8 @@
+# demo-group 依赖（Leader + Partner 群组模式）
+# 在 demo-group/ 目录执行：pip install -r requirements.txt
+
+-e ../acps-sdk
+fastapi>=0.100.0
+uvicorn>=0.24.0
+httpx>=0.24.0
+python-dotenv>=1.0.0

@@ -1,0 +1,65 @@
+{
+  "aic": "",
+  "active": true,
+  "protocolVersion": "02.01",
+  "lastModifiedTime": "2026-06-28T20:56:48.886379+08:00",
+  "name": "Demo Leader 智能体",
+  "description": "面向终端用户的多轮对话助手，需要实时信息时通过 AIP RPC 调用 Partner 查询。不对外提供 RPC 服务，也不直接联网搜索。",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "ACPs工作组",
+    "department": "",
+    "url": "https://ioa.pub",
+    "license": "京ICP备2025124884号-4"
+  },
+  "securitySchemes": {
+    "mtls": {
+      "type": "mutualTLS",
+      "description": "作为 AIP Client 调用 Partner 时使用 mTLS 客户端证书"
+    }
+  },
+  "endPoints": [],
+  "certificate": {
+    "altNames": {
+      "dns": [
+        "localhost"
+      ]
+    }
+  },
+  "capabilities": {
+    "streaming": false,
+    "notification": false,
+    "messageQueue": []
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "demo.leader.chat",
+      "name": "多轮对话",
+      "description": "与用户多轮交流，并在需要时委托 Partner 获取实时信息。不作为 RPC 服务端被其它智能体调用。",
+      "version": "1.0.0",
+      "tags": [
+        "demo",
+        "leader",
+        "chat",
+        "orchestration",
+        "aip-client"
+      ],
+      "examples": [
+        "什么是 ACPs 协议？",
+        "帮我查一下英伟达目前的股价"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "text/plain"
+      ]
+    }
+  ]
+}

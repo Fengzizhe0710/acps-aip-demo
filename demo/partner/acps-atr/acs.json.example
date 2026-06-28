@@ -1,0 +1,73 @@
+{
+  "aic": "",
+  "active": true,
+  "protocolVersion": "02.01",
+  "lastModifiedTime": "2026-06-28T20:41:07.764123+08:00",
+  "name": "实时信息 Partner",
+  "description": "通过 AIP RPC 接收单次文本查询，联网搜索并回答股价、天气、新闻等时效性问题。不提供多轮对话、流式输出，也不执行交易或访问私有数据。",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "ACPs Demo",
+    "url": "https://ioa.pub"
+  },
+  "securitySchemes": {
+    "mtls": {
+      "type": "mutualTLS",
+      "description": "智能体间 mTLS 双向认证；调用方须持有 ACPs 签发的合法客户端证书"
+    }
+  },
+  "endPoints": [
+    {
+      "url": "https://localhost:25002/rpc",
+      "transport": "JSONRPC",
+      "security": [
+        {
+          "mtls": []
+        }
+      ]
+    }
+  ],
+  "certificate": {
+    "altNames": {
+      "dns": [
+        "localhost"
+      ]
+    }
+  },
+  "capabilities": {
+    "streaming": false,
+    "notification": false,
+    "messageQueue": []
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "demo.partner.realtime-search",
+      "name": "联网实时信息查询",
+      "description": "根据自然语言问题联网搜索公开信息并返回文字答案。不执行交易、不访问私有系统，也不保证数据绝对实时准确。",
+      "version": "1.0.0",
+      "tags": [
+        "demo",
+        "partner",
+        "realtime",
+        "search",
+        "aip-rpc"
+      ],
+      "examples": [
+        "英伟达目前股价是多少？",
+        "北京今天天气怎么样？"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "text/plain"
+      ]
+    }
+  ]
+}

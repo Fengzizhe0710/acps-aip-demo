@@ -1,0 +1,75 @@
+{
+  "aic": "",
+  "active": true,
+  "protocolVersion": "02.01",
+  "lastModifiedTime": "2026-06-28T21:36:34.151280+08:00",
+  "name": "群组模式 Leader",
+  "description": "创建 RabbitMQ 群组、邀请 Partner 入群并广播任务。不对外提供 JSON-RPC 服务端点。",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "ACPs工作组",
+    "department": "",
+    "url": "https://ioa.pub",
+    "license": "京ICP备2025124884号-4"
+  },
+  "securitySchemes": {
+    "mtls": {
+      "type": "mutualTLS",
+      "description": "邀请 Partner 入群时使用 mTLS 客户端证书"
+    }
+  },
+  "endPoints": [
+    {
+      "url": "amqp://localhost:5672/?inbox=inbox_{AIC}",
+      "transport": "AMQP",
+      "security": [
+        {
+          "mtls": []
+        }
+      ]
+    }
+  ],
+  "certificate": {
+    "altNames": {
+      "dns": [
+        "localhost"
+      ]
+    }
+  },
+  "capabilities": {
+    "streaming": false,
+    "notification": false,
+    "messageQueue": [
+      "rabbitmq:>=4.2"
+    ]
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "demo-group.leader.orchestrate",
+      "name": "群组编排",
+      "description": "创建群组并向 Partner 广播协作任务。不作为 RPC 服务端被其它智能体调用。",
+      "version": "1.0.0",
+      "tags": [
+        "demo-group",
+        "leader",
+        "orchestration",
+        "rabbitmq"
+      ],
+      "examples": [
+        "请各位 Partner 自我介绍并报告状态"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "text/plain"
+      ]
+    }
+  ]
+}

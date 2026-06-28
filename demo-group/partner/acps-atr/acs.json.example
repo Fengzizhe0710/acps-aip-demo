@@ -1,0 +1,82 @@
+{
+  "aic": "",
+  "active": true,
+  "protocolVersion": "02.01",
+  "lastModifiedTime": "2026-06-28T21:34:39.916055+08:00",
+  "name": "群组模式 Partner",
+  "description": "通过 RabbitMQ 群组接收 Leader 广播任务，并用 AIP RPC 接受入群邀请。不提供点对点 RPC 任务接口。",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "ACPs Demo",
+    "url": "https://ioa.pub"
+  },
+  "securitySchemes": {
+    "mtls": {
+      "type": "mutualTLS",
+      "description": "智能体间 mTLS 双向认证"
+    }
+  },
+  "endPoints": [
+    {
+      "url": "amqp://localhost:5672/?inbox=inbox_{AIC}",
+      "transport": "AMQP",
+      "security": [
+        {
+          "mtls": []
+        }
+      ]
+    },
+    {
+      "url": "https://localhost:25003/aip",
+      "transport": "JSONRPC",
+      "security": [
+        {
+          "mtls": []
+        }
+      ]
+    }
+  ],
+  "certificate": {
+    "altNames": {
+      "dns": [
+        "localhost"
+      ]
+    }
+  },
+  "capabilities": {
+    "streaming": false,
+    "notification": false,
+    "messageQueue": [
+      "rabbitmq:>=4.2"
+    ]
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "demo-group.partner.broadcast",
+      "name": "群组任务响应",
+      "description": "接收 Leader 在 RabbitMQ 群组中广播的任务并返回文字结果。不主动创建群组，也不接受非群组模式的 RPC 任务。",
+      "version": "1.0.0",
+      "tags": [
+        "demo-group",
+        "partner",
+        "rabbitmq",
+        "broadcast"
+      ],
+      "examples": [
+        "请各位 Partner 自我介绍并报告状态"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "text/plain"
+      ]
+    }
+  ]
+}
